@@ -1,0 +1,29 @@
+package com.ecommerce.ordermanagement.repository;
+
+import com.ecommerce.ordermanagement.entity.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ProductRepository extends JpaRepository<Product, Long> {
+
+    boolean existsBySku(String sku);
+
+    java.util.Optional<Product> findBySku(String sku);
+
+    Page<Product> findByNameContainingIgnoreCase(
+            String name,
+            Pageable pageable
+    );
+
+    Page<Product> findByCategoryId(
+            Long categoryId,
+            Pageable pageable
+    );
+
+    Page<Product> findByNameContainingIgnoreCaseAndCategoryId(
+            String name,
+            Long categoryId,
+            Pageable pageable
+    );
+}
